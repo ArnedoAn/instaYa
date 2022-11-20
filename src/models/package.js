@@ -61,7 +61,7 @@ const mailSchema = new mongoose.Schema({
       required: true,
     },
   },
-  state:{
+  status:{
     type: String,
     required: false,
     default: "Guardado"
