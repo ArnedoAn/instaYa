@@ -1,4 +1,4 @@
-# Logs
+#logs
 logs
 *.log
 npm-debug.log*
@@ -27,6 +27,8 @@ coverage
 
 # Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
+
+node_modules
 
 # Bower dependency directory (https://bower.io/)
 bower_components
