@@ -22,7 +22,7 @@ router.post("/", Auth, async (req, res, next) => {
 });
 
 //Route to update a mail
-route.put("/", Auth, async (req, res, next) => {
+router.put("/", Auth, async (req, res, next) => {
   const id = req.body.id;
   mailSchema
     .findByIdAndUpdate(id, req.body)
@@ -31,7 +31,7 @@ route.put("/", Auth, async (req, res, next) => {
 });
 
 //Route to delete a mail
-route.delete("/", Auth, async (req, res, next) => {
+router.delete("/", Auth, async (req, res, next) => {
   const id = req.body.id;
   mailSchema
     .findByIdAndDelete(id)
