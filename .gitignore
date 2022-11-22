@@ -5,7 +5,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+
 .vscode
+
+*.yml
+Dockerfile
+.dockerignore
 
 
 # Diagnostic reports (https://nodejs.org/api/report.html)

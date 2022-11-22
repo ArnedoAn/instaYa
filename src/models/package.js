@@ -1,71 +1,71 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const mailSchema = new mongoose.Schema({
   toDate: {
     type: Date,
-    required: true,
+    required: true
   },
   package: {
     dimensions: {
       high: {
         type: Number,
-        required: true,
+        required: true
       },
       width: {
         type: Number,
-        required: true,
+        required: true
       },
       length: {
         type: Number,
-        required: true,
-      },
+        required: true
+      }
     },
     weigth: {
       type: Number,
-      required: true,
+      required: true
     },
-    fragile:{
-        type: Boolean,
-        required: true
+    fragile: {
+      type: Boolean,
+      required: true
     }
   },
   toUser: {
     name: {
       type: String,
-      required: true,
+      required: true
     },
     dni: {
       type: String,
-      required: true,
+      required: true
     },
     address: {
       type: String,
-      required: true,
+      required: true
     },
     city: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   fromUser: {
     name: {
       type: String,
-      required: true,
+      required: true
     },
     address: {
       type: String,
-      required: true,
+      required: true
     },
     city: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
-  status:{
+  status: {
     type: String,
     required: false,
-    default: "Guardado"
+    default: 'Guardado'
   }
-});
+})
 
-module.exports = mongoose.model("Mail", mailSchema);
+module.exports = mongoose.model('Mail', mailSchema)
