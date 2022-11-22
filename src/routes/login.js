@@ -4,6 +4,7 @@ const userSchema = require('../models/user')
 const { checkPassword } = require('../controllers/pwdController')
 const router = express.Router()
 
+// Route to login user
 router.post('/', async (req, res) => {
   const { user, password } = req.body
   const actualUser = await userSchema.findOne({ user })
