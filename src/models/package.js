@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const mailSchema = new mongoose.Schema({
   toDate: {
@@ -67,5 +68,7 @@ const mailSchema = new mongoose.Schema({
     default: 'Guardado'
   }
 })
+
+mailSchema.plugin(AutoIncrement, {inc_field: 'id'});
 
 module.exports = mongoose.model('Mail', mailSchema)
