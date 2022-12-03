@@ -18,9 +18,12 @@ router.get("/", Auth, async (req, res, next) => {
 // Route to insert new mail
 router.post("/", Auth, async (req, res, next) => {
   try {
-    const mail = mailSchema(req.body)
-      .save()
-      .then((data) => res.json(data));
+    const { toDate } = req.body;
+    if (!checkTime(new Date(toDate))) {
+      throw new Error("La fecha de entrega debe ser al menos 1 día después de la fecha actual");
+    }
+    const mail = await mailSchema(req.body).save();
+    res.status(200).json(mail);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });
@@ -42,9 +45,7 @@ router.put("/", Auth, async (req, res, next) => {
 router.delete("/", Auth, async (req, res, next) => {
   try {
     const id = req.body.id;
-    mailSchema
-      .findByIdAndDelete(id)
-      .then((data) => res.json(data));
+    mailSchema.findByIdAndDelete(id).then((data) => res.json(data));
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });
@@ -67,7 +68,10 @@ async function updateStatus(userName) {
   }
 }
 
-function checkTime(mailDate) {}
+function checkTime(mailDate) {
+  const now = new Date();
+  return dateDiffInDays(now, mailDate) >= 1;
+}
 
 // Auxiliar function to update mail status
 function dateDiffInDays(a, b) {

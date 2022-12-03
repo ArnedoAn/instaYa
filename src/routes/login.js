@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
   try {
     const { user, password } = req.body;
     const actualUser = await userSchema.findOne({ user });
-    if (await checkPassword(actualUser.get("password"), password)) {
+    if (await checkPassword(actualUser.password, password)) {
       const token = generateAccesToken(user);
       res.json({ message: "success", token });
     } else {

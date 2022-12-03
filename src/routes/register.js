@@ -14,9 +14,8 @@ router.post("/", async (req, res) => {
     req.body.password = pwd;
 
     // Creating and saving model into database
-    const user = userSchema(req.body)
-      .save()
-      .then((data) => res.json(data));
+    const user = await userSchema(req.body).save();
+    res.status(200).json(user);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });

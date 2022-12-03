@@ -27,14 +27,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(
-  "/api-doc",
-  swaggerUI.serve,
-  swaggerUI.setup(swaggerDoc)
+app.use(  "/api-doc", swaggerUI.serve,  swaggerUI.setup(swaggerDoc)
 );
 
 // Add routes
-app.use("/", indexRouter);
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
 app.use("/mail", sendMailRouter);
@@ -61,8 +57,8 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-app.listen(process.env.PORT, () =>
-  console.log("Server runing on port:" + process.env.PORT + "\nUse host/api-doc to see API documentation")
+app.listen(process.env.PORT || 3000, () =>
+  console.log("Server runing on port:" + process.env.PORT + "\nUse 'host/api-doc' to see API documentation")
 );
 
 console.log();

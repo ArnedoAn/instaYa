@@ -8,7 +8,6 @@ module.exports = function Auth (req, res, next) {
     jwt.verify(token, process.env.TOKEN)
     next()
   } catch (err) {
-    res.status(403)
-    res.send('Invalid token')
+    res.status(403).json({ message: 'Invalid token' })
   }
 }
