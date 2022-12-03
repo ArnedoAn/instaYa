@@ -4,6 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 require("dotenv").config();
+const cors = require("cors");
 const mongoose = require("mongoose");
 const swaggerUI = require("swagger-ui-express"),
   swaggerDoc = require("../swagger.json");
@@ -21,6 +22,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
 // Middleware setup
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
