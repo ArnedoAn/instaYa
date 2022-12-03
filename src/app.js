@@ -6,8 +6,7 @@ const logger = require("morgan");
 require("dotenv").config();
 const mongoose = require("mongoose");
 const swaggerUI = require("swagger-ui-express"),
-swaggerDoc = require("../swagger.json");
-
+  swaggerDoc = require("../swagger.json");
 
 // Importing routes
 const indexRouter = require("./routes/index");
@@ -27,13 +26,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(  "/api-doc", swaggerUI.serve,  swaggerUI.setup(swaggerDoc)
-);
+app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 
 // Add routes
-app.use("/register", registerRouter);
-app.use("/login", loginRouter);
-app.use("/mail", sendMailRouter);
+app.use("/", indexRouter);
+app.use("/api/register", registerRouter);
+app.use("/api/login", loginRouter);
+app.use("/api/mail", sendMailRouter);
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -58,7 +57,11 @@ app.use(function (err, req, res, next) {
 });
 
 app.listen(process.env.PORT || 3000, () =>
-  console.log("Server runing on port:" + process.env.PORT + "\nUse 'host/api-doc' to see API documentation")
+  console.log(
+    "Server runing on: " +
+      process.env.HOST_URL +
+      "\nUse 'host/api-doc' to see API documentation"
+  )
 );
 
 console.log();
