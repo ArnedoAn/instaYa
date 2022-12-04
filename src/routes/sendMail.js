@@ -6,7 +6,7 @@ const router = express.Router();
 // Route to get all mails from name of user (update status as well)
 router.get("/", Auth, async (req, res, next) => {
   try {
-    const { name } = req.body;
+    const name = req.header("name");
     await updateStatus(name);
     const mails = await mailSchema.find({ "fromUser.name": name });
     res.status(200).json(mails);
