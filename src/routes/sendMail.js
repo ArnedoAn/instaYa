@@ -8,7 +8,20 @@ router.get("/", Auth, async (req, res, next) => {
   try {
     const { name } = req.body;
     await updateStatus(name);
-    mailSchema.find({ "fromUser.name": name }).then((data) => res.json(data));
+    const mails = await mailSchema.find({ "fromUser.name": name });
+    res.status(200).json(mails);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Route to get one mail from id
+router.get("/:id", Auth, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const mail = await mailSchema.findOne({ id });
+    res.status(200).json(mail);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });
@@ -20,7 +33,9 @@ router.post("/", Auth, async (req, res, next) => {
   try {
     const { toDate } = req.body;
     if (!checkTime(new Date(toDate))) {
-      throw new Error("La fecha de entrega debe ser al menos 1 día después de la fecha actual");
+      throw new Error(
+        "La fecha de entrega debe ser al menos 1 día después de la fecha actual"
+      );
     }
     const mail = await mailSchema(req.body).save();
     res.status(200).json(mail);
@@ -57,7 +72,6 @@ async function updateStatus(userName) {
   const now = new Date();
   try {
     for await (const mail of mailSchema.find({ "fromUser.name": userName })) {
-      console.log(mail);
       if (dateDiffInDays(mail.toDate, now) >= 1) {
         mail.status = "Cumplido";
         await mail.save();
