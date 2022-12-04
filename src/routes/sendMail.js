@@ -73,6 +73,7 @@ async function updateStatus(userName) {
   try {
     for await (const mail of mailSchema.find({ "fromUser.name": userName })) {
       if (dateDiffInDays(mail.toDate, now) >= 1) {
+        console.log(mail);
         mail.status = "Cumplido";
         await mail.save();
       }
