@@ -7,7 +7,6 @@ const router = express.Router();
 router.get("/", Auth, async (req, res, next) => {
   try {
     const name = req.header("name");
-    console.log(req.header("token"));
     await updateStatus(name);
     const mails = await mailSchema.find({ "fromUser.name": name });
     res.status(200).json(mails);
