@@ -11,9 +11,9 @@ router.post("/", async (req, res) => {
     const actualUser = await userSchema.findOne({ user });
     if (await checkPassword(actualUser.password, password)) {
       const token = generateAccesToken(user);
-      res.json({ message: "success", token, actualUser });
+      res.status(200).json({ message: "success", token, actualUser });
     } else {
-      res.json({ message: "failed", error: "Invalid email or password" });
+      res.status(500).json({ message: "Invalid email or password" });
     }
   } catch (err) {
     console.log(err);

@@ -17,10 +17,11 @@ router.get("/", Auth, async (req, res, next) => {
 });
 
 // Route to get one mail from id
-router.get("/:id", Auth, async (req, res, next) => {
+router.get("/one", Auth, async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const id = req.header("id");
     const mail = await mailSchema.findOne({ id });
+    console.log(mail);
     res.status(200).json(mail);
   } catch (err) {
     console.log(err);
