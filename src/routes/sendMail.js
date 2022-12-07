@@ -49,7 +49,7 @@ router.post("/", Auth, async (req, res, next) => {
 // Route to update a mail
 router.put("/", Auth, async (req, res, next) => {
   try {
-    const id = req.body.id;
+    const id = req.body._id;
     mailSchema.findByIdAndUpdate(id, req.body).then((data) => res.json(data));
   } catch (err) {
     console.log(err);
@@ -60,7 +60,7 @@ router.put("/", Auth, async (req, res, next) => {
 // Route to delete a mail
 router.delete("/", Auth, async (req, res, next) => {
   try {
-    const id = req.body.id;
+    const id = req.body.__id;
     mailSchema.findByIdAndDelete(id).then((data) => res.json(data));
   } catch (err) {
     console.log(err);
